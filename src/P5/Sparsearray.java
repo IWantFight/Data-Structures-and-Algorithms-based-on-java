@@ -1,7 +1,9 @@
 package P5;
 
+import java.io.*;
+
 public class Sparsearray {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //创建一个原始数组11*11
         //1表示黑，2表示白，0表示无棋子
         int[][] chessArr = new int[11][11];
@@ -47,16 +49,21 @@ public class Sparsearray {
             }
         }
 
-        //遍历稀疏数组，打印
+        //遍历稀疏数组，打印并将其写入到文件中
         System.out.println("=====稀疏数组======");
+        File f = new File("file.txt");
+        OutputStream fos = new FileOutputStream(f);
         for (int[] arr:sparseArr
              ) {
             for (int i:arr
                  ) {
+                byte[] data = {};
+                fos.write(data);
                 System.out.printf("%d\t",i);
             }
             System.out.println();
         }
+        fos.close();
 
         //3、将稀疏数组转为原始数组
         int[][] transformedArr = new int[sparseArr[0][0]][sparseArr[0][1]];
