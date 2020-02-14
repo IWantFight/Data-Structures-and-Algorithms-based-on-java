@@ -49,35 +49,59 @@ public class Sparsearray {
             }
         }
 
-        //遍历稀疏数组，打印并将其写入到文件中
+        //遍历稀疏数组，打印并将其写入到文件file2.txt中
         System.out.println("=====稀疏数组======");
-        File f = new File("file.txt");
-        OutputStream fos = new FileOutputStream(f);
+        FileWriter fw = new FileWriter(new
+                File("file2.txt"));
         for (int[] arr:sparseArr
              ) {
             for (int i:arr
                  ) {
-                byte[] data = {};
-                fos.write(data);
+                fw.write(i+"\t");
+                System.out.printf("%d\t",i);
+            }
+            fw.write("\n");
+            System.out.println();
+        }
+        fw.close();
+
+
+        //读取写入的文件中存储的数据，并将其恢复为稀疏数组sparseArr2
+        int[][] sparseArr2 = new int[sum+1][3];
+        File f = new File("file2.txt");
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String line;
+        int row = 0;
+        while ((line = br.readLine()) != null){
+            String[] temp = line.split("\t");
+            for (int j = 0;j<temp.length;j++){
+                sparseArr2[row][j] = Integer.parseInt(temp[j]);
+            }
+            row++;
+        }
+        System.out.println("=====从文件读取恢复的稀疏矩阵====");
+        for (int[] arr:sparseArr2){
+            for (int i:arr){
                 System.out.printf("%d\t",i);
             }
             System.out.println();
         }
-        fos.close();
+
 
         //3、将稀疏数组转为原始数组
-        int[][] transformedArr = new int[sparseArr[0][0]][sparseArr[0][1]];
-        for (int i = 1;i<sparseArr.length;i++){
+        int[][] transformedArr = new int[sparseArr2[0][0]][sparseArr2[0][1]];
+        for (int i = 1;i<sparseArr2.length;i++){
             //transformedArr就三列，所以不要再循环了
             //我一开始以为sum是它的列数，其实是它的行数
-            transformedArr[sparseArr[i][0]][sparseArr[i][1]] = sparseArr[i][2];
+            transformedArr[sparseArr2[i][0]][sparseArr2[i][1]] = sparseArr2[i][2];
         }
+
 
         //遍历恢复后的数组
         System.out.println("======恢复后的稀疏数组=====");
-        for (int[] row:transformedArr
+        for (int[] arr:transformedArr
              ) {
-            for (int i:row
+            for (int i:arr
                  ) {
                 System.out.printf("%d\t",i);
             }
