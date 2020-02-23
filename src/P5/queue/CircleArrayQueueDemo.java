@@ -10,6 +10,7 @@ public class CircleArrayQueueDemo {
         boolean loop = true;
         while (loop) {
             System.out.println("s(show):显示队列");
+            System.out.printf("");
             System.out.println("e(exit):退出队列");
             System.out.println("a(add):添加队列");
             System.out.println("g(get):取出队列");
