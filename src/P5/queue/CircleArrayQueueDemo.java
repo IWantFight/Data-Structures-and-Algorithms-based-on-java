@@ -66,6 +66,8 @@ class CircleArrayQueue {
         arr = new int[maxSize];
         front = 0;//指向队列头部，指向队列的第一个数据。
         rear = 0;//指向队列尾部数据的下一个位置。
+        //照我个人理解，不应该指的是队列元素的下一个位置，因为添加几次，rear就等于几
+        //
     }
 
     //判断队列是否满
@@ -116,6 +118,9 @@ class CircleArrayQueue {
     }
 
     //定义一个方法，求出当前队列中的有效数据个数
+    //先存三次，再取1次，接着再存一次
+    //此时 front = 1,rear = 0,不知道这个公式原理是什么！！
+    //细想了下，一旦rear因为循环跑到了front前面后，就要加上一个maxSize来抵消了。
     public int getNumber() {
         return (rear + maxSize - front) % maxSize;
     }
